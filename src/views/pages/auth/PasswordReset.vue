@@ -78,7 +78,21 @@ export default {
     AuthCardTitle,
   },
   methods: {
-    async reset() {},
+    async reset() {
+      try {
+        this.loading = true;
+        await this.$store.dispatch("auth/resetPassword", {
+          ...this.user,
+          token: this.$route.params.token,
+        });
+        this.$router.push({ name: "login" });
+      } catch (error) {
+        this.$toasted.show(error.data.error);
+        return;
+      } finally {
+        this.loading = false;
+      }
+    },
   },
 };
 </script>

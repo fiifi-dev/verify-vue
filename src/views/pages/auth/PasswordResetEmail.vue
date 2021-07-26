@@ -29,7 +29,7 @@
           :dark="!invalid"
           @click="sendEmail()"
         >
-          Login
+          Send Email
         </v-btn>
         <v-spacer></v-spacer>
         <v-btn color="primary" text :to="{ name: 'login' }" plain>
@@ -57,7 +57,21 @@ export default {
     AuthCardTitle,
   },
   methods: {
-    async sendEmail() {},
+    async sendEmail() {
+      try {
+        this.loading = true;
+        await this.$store.dispatch("auth/resetPasswordEmail", this.user);
+        this.$toasted.show(`Reset Email sent to ${this.user.email}`, {
+          type: "success",
+        });
+      } catch (error) {
+        console.log(error)
+        this.$toasted.show(error.data.error);
+        return;
+      } finally {
+        this.loading = false;
+      }
+    },
   },
 };
 </script>

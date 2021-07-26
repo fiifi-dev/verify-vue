@@ -45,7 +45,7 @@ export const auth = {
     async logout({ commit, state }) {
       try {
         const config = {
-          headers: { Authorization: localStorage.getItem('t') },
+          headers: { Authorization: localStorage.getItem("t") },
         };
         await Vue.axios.delete(state.endpoints.logout, config);
         commit("removeToken");
@@ -81,7 +81,7 @@ export const auth = {
 
     async inspectToken() {
       try {
-        const token = localStorage.getItem('t');
+        const token = localStorage.getItem("t");
         if (token) {
           const decoded = jwt_decode(token);
           const exp = decoded.exp;
@@ -102,8 +102,7 @@ export const auth = {
     async resetPasswordEmail({ state }, payload) {
       try {
         let response = await Vue.axios.get(
-          state.endpoints.reset_password +
-            `?email=${encodeURIComponent(payload.email)}/`
+          state.endpoints.password_instructions + `?email=${payload.email}`
         );
         return response.data;
       } catch (error) {
@@ -131,10 +130,10 @@ export const auth = {
     async getUser({ state }) {
       try {
         const config = {
-          headers: { Authorization: localStorage.getItem('t') },
+          headers: { Authorization: localStorage.getItem("t") },
         };
         let response = await Vue.axios.get(
-          state.endpoints.user + `${localStorage.getItem('uid')}/`,
+          state.endpoints.user + `${localStorage.getItem("uid")}/`,
           config
         );
         let user = response.data.data;

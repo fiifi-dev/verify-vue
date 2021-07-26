@@ -55,7 +55,7 @@
           color="primary"
           text
           small
-          :to="{ name: 'password-reset' }"
+          :to="{ name: 'password-reset-email' }"
           plain
         >
           Forgetten password?

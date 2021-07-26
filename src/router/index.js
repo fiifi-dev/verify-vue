@@ -23,12 +23,12 @@ const routes = [
         component: pages.Signup,
       },
       {
-        path: "/password-reset",
+        path: "/password-reset/:token",
         name: "password-reset",
         component: pages.PasswordReset,
       },
       {
-        path: "/password-reset-email/:token",
+        path: "/password-reset-email",
         name: "password-reset-email",
         component: pages.PasswordResetEmail,
       },
@@ -86,7 +86,6 @@ router.beforeEach(async (to, from, next) => {
 
   const requires_auth = to.matched.some((record) => record.meta.requires_auth);
   let valid_token = await Store.dispatch("auth/inspectToken");
-  console.log(valid_token);
   if (requires_auth && !valid_token) {
     next({ name: "login", query: { next: next_route } });
   } else {
