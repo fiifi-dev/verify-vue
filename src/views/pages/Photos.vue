@@ -1,6 +1,10 @@
 <template>
   <v-row>
-    <v-col> Photos </v-col>
+    <v-col>
+      <v-card>
+        <v-card-text class="text-h4"> Photos Page </v-card-text>
+      </v-card>
+    </v-col>
   </v-row>
 </template>
 

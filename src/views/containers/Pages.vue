@@ -108,12 +108,12 @@
 </template>
 
 <script>
+import auth from "/src/mixins/auth.js";
 export default {
   name: "Pages",
+  mixins: [auth],
   data() {
     return {
-      loading: false,
-      user: null,
       drawer: null,
       navs: [
         { title: "Home", icon: "mdi-home", name: "home" },
@@ -146,18 +146,6 @@ export default {
     },
   },
   methods: {
-    async getUser() {
-      try {
-        this.loading = true;
-        let user = await this.$store.dispatch("auth/getUser");
-        this.user = user.attributes;
-      } catch (error) {
-        this.$toasted.show(error.data.error);
-        return;
-      } finally {
-        this.loading = false;
-      }
-    },
     async logout() {
       try {
         this.loading = true;
